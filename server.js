@@ -1,9 +1,9 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import config from 'config'
 import mongoose from 'mongoose'
 import path from 'path'
+import { db } from './config/db'
 
 import items from './src/routes/api/items'
 
@@ -11,8 +11,6 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
-
-const db = config.get('db')
 
 mongoose
   .connect(db, { useNewUrlParser: true })
