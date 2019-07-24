@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix ../client",
-    "start": "babel-node server.js",
-    "server": "nodemon server.js --exec babel-node",
-    "client": "npm start --prefix ../client",
+    "client-install": "npm install --prefix client",
+    "start": "babel-node server.js --prefix backend",
+    "server": "nodemon server.js --exec babel-node --prefix backend",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Injo Baik",
   "license": "MIT",
