@@ -1,23 +1,30 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import cors from 'cors'
+import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import path from 'path'
-import { db } from './config/db'
+import routes from './src/routes'
 
-import items from './src/routes/api/items'
-
+dotenv.config()
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(cors())
 
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB connected...'))
+const uri =
+  process.env.NODE_ENV === 'production'
+    ? process.env.ATLAS_URI
+    : process.env.MLAB_URI
+
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true })
+const connection = mongoose.connection
+connection
+  .once('open', () => {
+    console.log('MongoDB database connection established successfully')
+  })
   .catch(err => console.log(err))
 
-app.use('/api/items', items)
+routes(app)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
