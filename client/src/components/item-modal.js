@@ -15,7 +15,7 @@ import { addItem } from '../actions/item-actions'
 class ItemModal extends React.Component {
   state = {
     modal: false,
-    name: ''
+    asin: ''
   }
 
   toggle = () => {
@@ -32,7 +32,7 @@ class ItemModal extends React.Component {
     e.preventDefault()
 
     const newItem = {
-      name: this.state.name
+      asin: this.state.asin
     }
 
     this.props.addItem(newItem)
@@ -75,9 +75,9 @@ class ItemModal extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  item: state.item
-})
+const mapStateToProps = ({ items }) => {
+  return { items }
+}
 
 export default connect(
   mapStateToProps,

@@ -14,17 +14,23 @@ import { getItems, deleteItem } from '../actions/item-actions'
 
 class ItemTable extends React.Component {
   state = {
-    modal: false
+    modal: false,
+    itemId: null,
+    itemASIN: ''
   }
 
-  toggle = () => {
+  toggle = (item = null) => {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      itemId: item._id,
+      itemASIN: item.asin
     })
   }
 
   render() {
     const { loading } = this.props
+
+    console.log(this.props.items)
 
     if (loading) {
       return (
@@ -45,8 +51,11 @@ class ItemTable extends React.Component {
       <Table hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th />
+            <th>ASIN</th>
+            <th>name</th>
+            <th>dimension</th>
+            <th>rank</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>{this.renderRows()}</tbody>
@@ -56,21 +65,33 @@ class ItemTable extends React.Component {
 
   renderRows() {
     const { items } = this.props
+    const { modal, itemId, itemASIN } = this.state
 
     return items.data.map(item => {
       return (
         <tr key={item._id}>
           <th scope='row'>{item.asin}</th>
+          <td>{item.name}</td>
+          <td>{item.dimension}</td>
+          <td>{item.rank}</td>
           <td>
-            <Button onClick={this.toggle} close />
-            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader toggle={this.toggle}>Delete Item</ModalHeader>
-              <ModalBody>Are you sure you want to delete the item?</ModalBody>
+            <Button onClick={() => this.toggle(item)} close />
+            <Modal
+              isOpen={modal}
+              id={itemId}
+              asin={itemASIN}
+              toggle={this.toggle}
+            >
+              <ModalHeader
+                toggle={this.toggle}
+              >{`Delete ${itemASIN}`}</ModalHeader>
+              <ModalBody>{`Are you sure you want to delete the ${itemASIN}?`}</ModalBody>
               <ModalFooter>
                 <Button
                   color='danger'
                   onClick={() => {
-                    this.props.deleteItem(item._id)
+                    this.onDelete(itemId)
+                    this.toggle(item)
                   }}
                 >
                   Delete
@@ -85,6 +106,13 @@ class ItemTable extends React.Component {
         </tr>
       )
     })
+  }
+
+  deleteRow() {}
+
+  onDelete(id) {
+    console.log(id)
+    this.props.deleteItem(id)
   }
 
   componentDidMount() {

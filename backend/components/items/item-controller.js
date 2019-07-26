@@ -1,4 +1,7 @@
+import DomParser from 'dom-parser'
 import Item from './item-model'
+
+const parser = new DomParser()
 
 export const index = async (req, res, next) => {
   const items = await Item.find().sort({ createdAt: -1 })
@@ -15,8 +18,13 @@ export const create = async (req, res, next) => {
       message: `Item with '${req.value.body.asin}' already exists`
     })
   }
-
-  const newItem = new Item(req.value.body)
+  const newBody = {
+    ...req.value.body,
+    name: 'injo',
+    dimension: '20x20',
+    rank: 3
+  }
+  const newItem = new Item(newBody)
   await newItem.save()
 
   res
