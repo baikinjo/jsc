@@ -58,7 +58,7 @@ class ItemModal extends React.Component {
                 <Label for='item'>Item</Label>
                 <Input
                   type='text'
-                  name='name'
+                  name='asin'
                   id='item'
                   placeholder='Add Item'
                   onChange={this.onChange}

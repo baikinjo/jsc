@@ -2,9 +2,8 @@ import Item from './item-model'
 
 export const index = async (req, res, next) => {
   const items = await Item.find().sort({ createdAt: -1 })
-  const count = await Item.count()
 
-  res.status(200).json({ items, count })
+  res.status(200).json({ items })
 }
 
 export const create = async (req, res, next) => {

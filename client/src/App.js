@@ -1,6 +1,6 @@
 import React from 'react'
 import AppNavbar from './components/app-navbar'
-import ItemList from './components/item-list'
+import ItemTable from './components/item-table'
 import ItemModal from './components/item-modal'
 import { Container } from 'reactstrap'
 
@@ -17,7 +17,7 @@ function App() {
         <AppNavbar />
         <Container>
           <ItemModal />
-          <ItemList />
+          <ItemTable />
         </Container>
       </div>
     </Provider>
