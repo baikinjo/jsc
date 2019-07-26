@@ -13,7 +13,7 @@ app.use(cors())
 
 const uri =
   process.env.NODE_ENV === 'production'
-    ? process.env.ATLAS_URI
+    ? process.env.MLAB_URI
     : process.env.MLAB_URI
 
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true })

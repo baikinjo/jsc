@@ -30,8 +30,6 @@ class ItemTable extends React.Component {
   render() {
     const { loading } = this.props
 
-    console.log(this.props.items)
-
     if (loading) {
       return (
         <div>
@@ -108,10 +106,7 @@ class ItemTable extends React.Component {
     })
   }
 
-  deleteRow() {}
-
   onDelete(id) {
-    console.log(id)
     this.props.deleteItem(id)
   }
 
