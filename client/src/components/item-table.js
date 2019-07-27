@@ -46,13 +46,14 @@ class ItemTable extends React.Component {
     }
 
     return (
-      <Table hover>
+      <Table responsive hover>
         <thead>
           <tr>
             <th>ASIN</th>
-            <th>name</th>
-            <th>dimension</th>
-            <th>rank</th>
+            <th>Category</th>
+            <th>Dimensions</th>
+            <th>Rank</th>
+            <th />
             <th> </th>
           </tr>
         </thead>
@@ -68,10 +69,19 @@ class ItemTable extends React.Component {
     return items.data.map(item => {
       return (
         <tr key={item._id}>
-          <th scope='row'>{item.asin}</th>
-          <td>{item.name}</td>
+          <th scope='row'>
+            <a href={item.baseURL} target='_blank'>
+              {item.asin}
+            </a>
+          </th>
+          <td>{item.category}</td>
           <td>{item.dimension}</td>
           <td>{item.rank}</td>
+          <td>
+            <a href={item.baseURL} target='_blank'>
+              Link
+            </a>
+          </td>
           <td>
             <Button onClick={() => this.toggle(item)} close />
             <Modal
@@ -89,7 +99,7 @@ class ItemTable extends React.Component {
                   color='danger'
                   onClick={() => {
                     this.onDelete(itemId)
-                    this.toggle(item)
+                    this.setState({ modal: !this.state.modal })
                   }}
                 >
                   Delete

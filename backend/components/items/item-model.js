@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 
 const itemSchema = new Schema(
   {
-    name: {
+    baseURL: {
       type: String
     },
     category: {
