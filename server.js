@@ -11,10 +11,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const uri =
-  process.env.NODE_ENV === 'production'
-    ? process.env.MLAB_URI
-    : process.env.MLAB_URI
+const uri = process.env.MLAB_URI
 
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true })
 const connection = mongoose.connection
