@@ -11,8 +11,8 @@ import {
   Alert
 } from 'reactstrap'
 
-import { getItems, deleteItem } from '../actions/item-actions'
-import { removeError } from '../actions/error-actions'
+import { getItems, deleteItem } from '../item-actions'
+import { removeError } from '../../errors/error-actions'
 
 class ItemTable extends React.Component {
   state = {

@@ -1,4 +1,4 @@
-import { GET_ITEMS, ITEMS_LOADING } from '../actions/types'
+import { GET_ITEMS, ITEMS_LOADING } from '../../actions/types'
 
 const initialState = {
   data: [],

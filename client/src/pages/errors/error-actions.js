@@ -1,4 +1,4 @@
-import { SET_ERROR, REMOVE_ERROR } from './types'
+import { SET_ERROR, REMOVE_ERROR } from '../../actions/types'
 
 export const setError = () => {
   return {

@@ -6,7 +6,7 @@ import {
   ITEMS_LOADING,
   ADD_ERROR,
   SET_ERROR
-} from './types'
+} from '../../actions/types'
 
 export const getItems = () => {
   return dispatch => {

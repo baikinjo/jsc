@@ -1,4 +1,4 @@
-import { ADD_ERROR, SET_ERROR, REMOVE_ERROR } from '../actions/types'
+import { ADD_ERROR, SET_ERROR, REMOVE_ERROR } from '../../actions/types'
 
 const initialState = {
   occured: false

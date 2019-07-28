@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
 import { AvForm, AvField } from 'availity-reactstrap-validation'
 import { connect } from 'react-redux'
-import { addItem } from '../actions/item-actions'
+import { addItem } from '../item-actions'
 
 class ItemModal extends React.Component {
   state = {

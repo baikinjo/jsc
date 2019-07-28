@@ -1,16 +1,15 @@
 import React from 'react'
-import AppNavbar from './components/app-navbar'
-import ItemTable from './components/item-table'
-import ItemModal from './components/item-modal'
+import AppNavbar from './app-navbar'
+import ItemTable from '../items/components/item-table'
+import ItemModal from '../items/components/item-modal'
 import { Container } from 'reactstrap'
 
 import { Provider } from 'react-redux'
-import store from './store'
+import store from '../../store'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
 
-function App() {
+function app() {
   return (
     <Provider store={store}>
       <div className='App'>
@@ -24,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default app
