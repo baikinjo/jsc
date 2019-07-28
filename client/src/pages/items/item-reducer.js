@@ -1,5 +1,13 @@
+/**
+ * ./client/src/pages/items/item-reducer
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Actions ======================================================================================= */
 import { GET_ITEMS, ITEMS_LOADING } from '../../actions/types'
 
+/* Constants ===================================================================================== */
 const initialState = {
   data: [],
   loading: false

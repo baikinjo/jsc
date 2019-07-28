@@ -1,9 +1,19 @@
+/**
+ * ./client/src/pages/items/components/item-modal
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================= */
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
 import { AvForm, AvField } from 'availity-reactstrap-validation'
 import { connect } from 'react-redux'
+
+/* Actions ======================================================================================= */
 import { addItem } from '../item-actions'
 
+/* <item-modal /> ================================================================================ */
 class ItemModal extends React.Component {
   state = {
     error: true,
@@ -11,12 +21,14 @@ class ItemModal extends React.Component {
     asin: ''
   }
 
+  /** toggle to turn modal on/off */
   toggle = () => {
     this.setState({
       modal: !this.state.modal
     })
   }
 
+  /** check regex value to disable/enable button submission */
   onChange = e => {
     let regex = RegExp('^[A-Za-z0-9]{10}$')
     if (regex.test(e.target.value)) {
@@ -27,6 +39,7 @@ class ItemModal extends React.Component {
     }
   }
 
+  /** generic submit button where value enterend will pass on to api */
   onSubmit = e => {
     e.preventDefault()
 
@@ -38,6 +51,7 @@ class ItemModal extends React.Component {
     this.toggle()
   }
 
+  /** Main render method */
   render() {
     return (
       <div>
@@ -98,6 +112,7 @@ const mapStateToProps = ({ items }) => {
   return { items }
 }
 
+/* Exports ======================================================================================= */
 export default connect(
   mapStateToProps,
   { addItem }

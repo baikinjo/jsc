@@ -1,5 +1,14 @@
+/**
+ * ./client/src/store
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================= */
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+
+/* Reducers ====================================================================================== */
 import rootReducer from './reducers'
 
 const initialState = {}
@@ -15,4 +24,5 @@ const store = createStore(
   )
 )
 
+/* Exports ======================================================================================= */
 export default store

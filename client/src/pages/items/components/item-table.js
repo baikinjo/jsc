@@ -1,3 +1,10 @@
+/**
+ * ./client/src/pages/items/components/item-table
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================= */
 import React from 'react'
 import { connect } from 'react-redux'
 import {
@@ -11,9 +18,11 @@ import {
   Alert
 } from 'reactstrap'
 
+/* Actions ======================================================================================= */
 import { getItems, deleteItem } from '../item-actions'
 import { removeError } from '../../errors/error-actions'
 
+/* <ItemTable /> ================================================================================= */
 class ItemTable extends React.Component {
   state = {
     modal: false,
@@ -21,6 +30,7 @@ class ItemTable extends React.Component {
     itemASIN: ''
   }
 
+  /** Modal turn on/off as well as seed the item info upon delete button onClick */
   toggle = (item = null) => {
     this.setState({
       modal: !this.state.modal,
@@ -29,6 +39,7 @@ class ItemTable extends React.Component {
     })
   }
 
+  /** Main render method */
   render() {
     const { loading, occured } = this.props
     console.log(this.props)
@@ -78,6 +89,7 @@ class ItemTable extends React.Component {
     )
   }
 
+  /** Renders mapped item into a rows with delete modal */
   renderRows() {
     const { items } = this.props
     const { modal, itemId, itemASIN } = this.state
@@ -127,15 +139,18 @@ class ItemTable extends React.Component {
     })
   }
 
+  /** item_id will send to api */
   onDelete(id) {
     this.props.deleteItem(id)
   }
 
+  /** removes any error generated from props and refresh the page */
   refresh() {
     this.props.removeError()
     this.props.getItems()
   }
 
+  /** Mounting items props */
   componentDidMount() {
     const { getItems } = this.props
     getItems()
@@ -154,6 +169,7 @@ const mapStateToProps = ({ items, errors }) => {
   }
 }
 
+/* Exports ======================================================================================= */
 export default connect(
   mapStateToProps,
   {

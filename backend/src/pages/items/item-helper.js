@@ -1,5 +1,13 @@
+/**
+ * ./backend/src/pages/items/item-helper
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================= */
 import Joi from '@hapi/joi'
 
+/* Schema ======================================================================================== */
 export const schema = {
   default: Joi.object().keys({
     baseURL: Joi.string(),

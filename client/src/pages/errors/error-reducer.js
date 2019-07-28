@@ -1,5 +1,13 @@
+/**
+ * ./client/src/pages/erros/error-reducer
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Actions ======================================================================================= */
 import { ADD_ERROR, SET_ERROR, REMOVE_ERROR } from '../../actions/types'
 
+/* Constants ===================================================================================== */
 const initialState = {
   occured: false
 }

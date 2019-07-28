@@ -1,8 +1,16 @@
-import Joi from '@hapi/joi'
+/**
+ * ./backend/src/common/route-helper
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================== */
 import _ from 'lodash'
+import Joi from '@hapi/joi'
 
 /**
  * Validate post body
+ * @param {*} schema format to match using Joi
  */
 export const validateBody = schema => {
   return (req, res, next) => {

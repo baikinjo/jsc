@@ -1,3 +1,10 @@
+/**
+ * ./client/src/pages/app/app-navbar
+ *
+ *  Injo Baik, baikinjo.28@gmail.com
+ */
+
+/* Imports ======================================================================================= */
 import React from 'react'
 import {
   Collapse,
@@ -10,6 +17,7 @@ import {
   Container
 } from 'reactstrap'
 
+/* <AppNavbar /> ================================================================================= */
 class AppNavbar extends React.Component {
   state = {
     isOpen: false
@@ -42,4 +50,5 @@ class AppNavbar extends React.Component {
   }
 }
 
+/* Exports ======================================================================================= */
 export default AppNavbar
