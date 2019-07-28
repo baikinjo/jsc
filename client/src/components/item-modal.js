@@ -1,19 +1,12 @@
 import React from 'react'
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
+import { AvForm, AvField } from 'availity-reactstrap-validation'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/item-actions'
 
 class ItemModal extends React.Component {
   state = {
+    error: true,
     modal: false,
     asin: ''
   }
@@ -25,7 +18,13 @@ class ItemModal extends React.Component {
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
+    let regex = RegExp('^[A-Za-z0-9]{10}$')
+    if (regex.test(e.target.value)) {
+      this.setState({ error: false })
+      this.setState({ [e.target.name]: e.target.value })
+    } else {
+      this.setState({ error: true })
+    }
   }
 
   onSubmit = e => {
@@ -36,7 +35,6 @@ class ItemModal extends React.Component {
     }
 
     this.props.addItem(newItem)
-
     this.toggle()
   }
 
@@ -44,7 +42,7 @@ class ItemModal extends React.Component {
     return (
       <div>
         <Button
-          color='dark'
+          color='success'
           style={{ marginBottom: '2rem' }}
           onClick={this.toggle}
         >
@@ -53,21 +51,42 @@ class ItemModal extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add to item list</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.onSubmit}>
-              <FormGroup>
-                <Label for='item'>Item</Label>
-                <Input
-                  type='text'
-                  name='asin'
-                  id='item'
-                  placeholder='Add Item'
-                  onChange={this.onChange}
-                />
-                <Button color='dark' style={{ marginTop: '2rem' }} block>
-                  Add Item
-                </Button>
-              </FormGroup>
-            </Form>
+            <AvForm onSubmit={this.onSubmit}>
+              <Label for='item'>Item</Label>
+              <AvField
+                name='asin'
+                id='item'
+                placeholder='Add ASIN Number, for example: B07HJWVJDN'
+                onChange={this.onChange}
+                validate={{
+                  required: {
+                    value: true,
+                    errorMessage: 'ASIN Number is required'
+                  },
+                  pattern: {
+                    value: '^[A-Za-z0-9]+$',
+                    errorMessage:
+                      'ASIN number must be composed only with letter and numbers'
+                  },
+                  minLength: {
+                    value: 10,
+                    errorMessage: 'ASIN number must be 10 characters'
+                  },
+                  maxLength: {
+                    value: 10,
+                    errorMessage: 'ASIN number must be 10 characters'
+                  }
+                }}
+              />
+              <Button
+                color='success'
+                style={{ marginTop: '2rem' }}
+                disabled={this.state.error}
+                block
+              >
+                Add Item
+              </Button>
+            </AvForm>
           </ModalBody>
         </Modal>
       </div>

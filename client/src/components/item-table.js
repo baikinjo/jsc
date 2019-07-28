@@ -7,10 +7,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Spinner
+  Spinner,
+  Alert
 } from 'reactstrap'
 
 import { getItems, deleteItem } from '../actions/item-actions'
+import { removeError } from '../actions/error-actions'
 
 class ItemTable extends React.Component {
   state = {
@@ -28,9 +30,23 @@ class ItemTable extends React.Component {
   }
 
   render() {
-    const { loading } = this.props
+    const { loading, occured } = this.props
+    console.log(this.props)
 
     if (loading) {
+      if (occured) {
+        return (
+          <div>
+            <Alert color='dark'>
+              The Product does not exist,
+              <Button color='link' onClick={() => this.refresh()}>
+                click here
+              </Button>
+              to return.
+            </Alert>
+          </div>
+        )
+      }
       return (
         <div>
           <Spinner type='grow' color='primary' />
@@ -41,6 +57,7 @@ class ItemTable extends React.Component {
           <Spinner type='grow' color='info' />
           <Spinner type='grow' color='light' />
           <Spinner type='grow' color='dark' />
+          <Alert color='light'>Fetching Data...</Alert>
         </div>
       )
     }
@@ -53,7 +70,6 @@ class ItemTable extends React.Component {
             <th>Category</th>
             <th>Dimensions</th>
             <th>Rank</th>
-            <th />
             <th> </th>
           </tr>
         </thead>
@@ -77,11 +93,6 @@ class ItemTable extends React.Component {
           <td>{item.category}</td>
           <td>{item.dimension}</td>
           <td>{item.rank}</td>
-          <td>
-            <a href={item.baseURL} target='_blank'>
-              Link
-            </a>
-          </td>
           <td>
             <Button onClick={() => this.toggle(item)} close />
             <Modal
@@ -120,18 +131,26 @@ class ItemTable extends React.Component {
     this.props.deleteItem(id)
   }
 
+  refresh() {
+    this.props.removeError()
+    this.props.getItems()
+  }
+
   componentDidMount() {
     const { getItems } = this.props
     getItems()
   }
 }
 
-const mapStateToProps = ({ items }) => {
+const mapStateToProps = ({ items, errors }) => {
   const loading = items.loading
+  const occured = errors.occured
 
   return {
     loading,
-    items
+    occured,
+    items,
+    errors
   }
 }
 
@@ -139,6 +158,7 @@ export default connect(
   mapStateToProps,
   {
     getItems,
-    deleteItem
+    deleteItem,
+    removeError
   }
 )(ItemTable)

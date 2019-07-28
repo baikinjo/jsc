@@ -19,82 +19,39 @@ const BEST_SELLERS_RANK = 'Best Sellers Rank'
 const PRODUCT_DIMENSIONS = 'Product Dimensions'
 const LIST_CLASS = 'li'
 const SALES_ID = 'SalesRank'
-const ASIN = 'B07L4PL653'
+const ASIN = 'B06XWZWYVP'
 const URL = `https://www.amazon.com/dp/${ASIN}`
 
-JSDOM.fromURL(URL).then(dom => {
-  const department = dom.window.document.getElementById(DEPARTMENT_ID)
-  const category = department.childNodes[1].childNodes[1].textContent.trim()
-
-  let salesRank = dom.window.document.getElementById(SALES_ID)
-
-  let foundDimension, foundRank, dimension, rank
-
-  if (salesRank && salesRank.parentElement.tagName == 'TBODY') {
+JSDOM.fromURL(URL)
+  .then(dom => {
+    const department = dom.window.document.getElementById(DEPARTMENT_ID)
+    const category = department.childNodes[1].childNodes[1].textContent.trim()
     const tableElements = dom.window.document.getElementsByTagName('*')
-
-    for (let i = 0; i < tableElements.length; i++) {
-      if (tableElements[i].textContent.trim() === PRODUCT_DIMENSIONS) {
-        foundDimension = tableElements[i]
-        continue
-      }
-      if (
-        tableElements[i].textContent.trim() === AMAZON_BEST_SELLERS_RANK ||
-        tableElements[i].textContent.trim() === BEST_SELLERS_RANK
-      ) {
-        foundRank = tableElements[i]
-        break
-      }
-    }
-
-    dimension = foundDimension.nextElementSibling.textContent.trim()
-    rank = foundRank.nextElementSibling.textContent.trim().split(' (')[0]
-  } else if (salesRank) {
     const listElements = dom.window.document.getElementsByTagName(LIST_CLASS)
 
-    for (let i = 0; i < listElements.length; i++) {
-      if (listElements[i].textContent.trim().includes(PRODUCT_DIMENSIONS)) {
-        foundDimension = listElements[i]
-        break
-      }
-    }
-    if (foundDimension) {
-      dimension = foundDimension.textContent
-        .trim()
-        .replace(/\s/g, '')
-        .split(':')
-        .pop()
-        .split(' ;')[0]
-    }
-    if (salesRank) {
-      rank = salesRank.textContent
-        .trim()
-        .split('Rank: ')
-        .pop()
-        .split(' (')[0]
-    }
-  } else {
-    const tableElements = dom.window.document.getElementsByTagName('*')
+    let salesRank = dom.window.document.getElementById(SALES_ID)
+    console.log(salesRank)
 
-    for (let i = 0; i < tableElements.length; i++) {
-      if (tableElements[i].textContent.trim() === PRODUCT_DIMENSIONS) {
-        foundDimension = tableElements[i]
-        continue
+    let foundDimension, foundRank, dimension, rank
+
+    if (salesRank !== null && salesRank.parentElement.tagName == 'TBODY') {
+      for (let i = 0; i < tableElements.length; i++) {
+        if (tableElements[i].textContent.trim() == PRODUCT_DIMENSIONS) {
+          foundDimension = tableElements[i]
+          continue
+        }
+        if (
+          tableElements[i].textContent.trim() == AMAZON_BEST_SELLERS_RANK ||
+          tableElements[i].textContent.trim() == BEST_SELLERS_RANK
+        ) {
+          foundRank = tableElements[i]
+          break
+        }
       }
-      if (
-        tableElements[i].textContent.trim() === AMAZON_BEST_SELLERS_RANK ||
-        tableElements[i].textContent.trim() === BEST_SELLERS_RANK
-      ) {
-        foundRank = tableElements[i]
-        break
-      }
-    }
-    if (foundDimension || foundRank) {
+
       dimension = foundDimension.nextElementSibling.textContent.trim()
       rank = foundRank.nextElementSibling.textContent.trim().split(' (')[0]
-    } else {
-      const listElements = dom.window.document.getElementsByTagName(LIST_CLASS)
-
+    } else if (salesRank !== null) {
       for (let i = 0; i < listElements.length; i++) {
         if (listElements[i].textContent.trim().includes(PRODUCT_DIMENSIONS)) {
           foundDimension = listElements[i]
@@ -116,14 +73,61 @@ JSDOM.fromURL(URL).then(dom => {
           .pop()
           .split(' (')[0]
       }
+    } else {
+      for (let i = 0; i < tableElements.length; i++) {
+        if (tableElements[i].textContent.trim() == PRODUCT_DIMENSIONS) {
+          foundDimension = tableElements[i]
+          continue
+        }
+        if (
+          tableElements[i].textContent
+            .trim()
+            .includes(AMAZON_BEST_SELLERS_RANK) ||
+          tableElements[i].textContent.trim() == BEST_SELLERS_RANK
+        ) {
+          foundRank = tableElements[i]
+          break
+        }
+      }
+      if (
+        typeof foundDimension !== undefined ||
+        typeof foundRank !== undefined
+      ) {
+        console.log(foundDimension.nextElementSibling.textContent)
+        dimension = foundDimension.nextElementSibling.textContent.trim()
+        console.log(dimension)
+        rank = foundRank.nextElementSibling.textContent.trim().split(' (')[0]
+      } else {
+        for (let i = 0; i < listElements.length; i++) {
+          if (listElements[i].textContent.trim().includes(PRODUCT_DIMENSIONS)) {
+            foundDimension = listElements[i]
+            break
+          }
+        }
+        if (foundDimension) {
+          dimension = foundDimension.textContent
+            .trim()
+            .replace(/\s/g, '')
+            .split(':')
+            .pop()
+            .split(' ;')[0]
+        }
+        if (salesRank) {
+          rank = salesRank.textContent
+            .trim()
+            .split('Rank: ')
+            .pop()
+            .split(' (')[0]
+        }
+      }
     }
-  }
 
-  const parsed = {
-    category,
-    dimension,
-    rank,
-    baseURL: URL
-  }
-  console.log(parsed)
-})
+    let parsed = {
+      category,
+      dimension,
+      rank,
+      baseURL: URL
+    }
+    console.log(parsed)
+  })
+  .catch(err => {})
