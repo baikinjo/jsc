@@ -5,7 +5,7 @@
  */
 
 /* Actions ======================================================================================= */
-import { ADD_ERROR, SET_ERROR, REMOVE_ERROR } from '../../actions/types'
+import { ADD_ERROR, SET_ERROR, REMOVE_ERROR } from '../../common/types'
 
 /* Constants ===================================================================================== */
 const initialState = {

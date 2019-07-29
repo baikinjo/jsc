@@ -5,7 +5,7 @@
  */
 
 /* Actions ======================================================================================= */
-import { GET_ITEMS, ITEMS_LOADING } from '../../actions/types'
+import { GET_ITEMS, ITEMS_LOADING } from '../../common/types'
 
 /* Constants ===================================================================================== */
 const initialState = {

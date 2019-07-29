@@ -15,7 +15,7 @@ import {
   ITEMS_LOADING,
   ADD_ERROR,
   SET_ERROR
-} from '../../actions/types'
+} from '../../common/types'
 
 /* Actions ======================================================================================= */
 

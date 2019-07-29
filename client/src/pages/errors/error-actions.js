@@ -5,7 +5,7 @@
  */
 
 /* Types ========================================================================================= */
-import { SET_ERROR, REMOVE_ERROR } from '../../actions/types'
+import { SET_ERROR, REMOVE_ERROR } from '../../common/types'
 
 /* Actions ======================================================================================= */
 export const setError = () => {
