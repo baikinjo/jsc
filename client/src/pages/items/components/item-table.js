@@ -98,7 +98,7 @@ class ItemTable extends React.Component {
       return (
         <tr key={item._id}>
           <th scope='row'>
-            <a href={item.baseURL} target='_blank'>
+            <a href={item.baseURL} rel='noopener noreferrer' target='_blank'>
               {item.asin}
             </a>
           </th>
