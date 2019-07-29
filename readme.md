@@ -59,7 +59,7 @@ Port for backend is [http://localhost:5000](http://localhost:5000).
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/runtime": "^7.5.5",
     "@types/hapi__joi": "^15.0.3",
-    "jest": "^24.8.0",
+    "jest": "^24.7.1",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2"
 
