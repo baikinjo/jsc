@@ -127,10 +127,7 @@ export const create = async (req, res, next) => {
         baseURL
       })
     })
-    .catch(err => {
-      console.log(err)
-    })
-  console.log(parsed)
+    .catch(err => {})
 
   // If the size of parsed is zero, meaning JSDOM cound't get the product information so return 404 product not found
   if (_.size(parsed) <= 0) {
@@ -151,7 +148,8 @@ export const create = async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    message: 'New Item Created'
+    message: 'New Item Created',
+    id: newItem._id
   })
 }
 

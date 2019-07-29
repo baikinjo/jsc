@@ -54,5 +54,21 @@ Port for backend is [http://localhost:5000](http://localhost:5000).
     "lodash": "^4.17.15",
     "mongoose": "^5.6.6"
 
+### Backend devDependencies
+
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
     "@types/hapi__joi": "^15.0.3",
-    "nodemon": "^1.19.1"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
+
+## Unit Testing
+
+On the root directory run:
+
+    npm run test
+
+Test will return in this manner:
+
+![Test](./backend/assets/test.png)
